@@ -38,14 +38,6 @@ class CinemaHall(models.Model):
     def capacity(self) -> int:
         return self.rows * self.seats_in_row
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["rows", "seats_in_row"],
-                name="unique_rows_seats_in_row"
-            ),
-        ]
-
     def __str__(self) -> str:
         return self.name
 
@@ -101,7 +93,7 @@ class Ticket(models.Model):
         ]
 
     def __str__(self) -> str:
-        return (f"Matrix {self.movie_session.show_time} "
+        return (f"{self.movie_session} "
                 f"(row: {self.row}, seat: {self.seat})")
 
     def clean(self) -> None:
