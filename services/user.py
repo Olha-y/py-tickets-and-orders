@@ -1,4 +1,5 @@
 from typing import Optional
+from django.contrib.auth import get_user_model
 from db.models import User
 
 
@@ -42,7 +43,7 @@ def update_user(
         raise ValueError(f"User with id {user_id} does not exist")
 
     if username and username != user.username:
-        if User.objects.filter(username=username).exclude(pk=user_id).exists():
+        if get_user_model().objects.filter(username=username).exclude(pk=user_id).exists():
             raise ValueError(f"Username {username} is already taken")
         user.username = username
 
